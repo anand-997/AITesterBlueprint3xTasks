@@ -1,0 +1,508 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .banner { font-family: var(--font-sans); width: 100%; background: var(--color-background-primary); }
+
+  .header { background: #0d1b2a; color: #fff; padding: 28px 32px 22px; text-align: center; }
+  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.5px; color: #fff; margin-bottom: 6px; }
+  .header h1 span.green { color: #4ade80; }
+  .header h1 span.red { color: #f87171; }
+  .header p { font-size: 14px; color: #94a3b8; font-weight: 400; }
+
+  .badge-row { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+  .badge-green { background: #14532d; color: #86efac; }
+  .badge-blue { background: #1e3a5f; color: #93c5fd; }
+  .badge-amber { background: #713f12; color: #fcd34d; }
+
+  .section { padding: 20px 24px; }
+  .section-title { font-size: 15px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-title i { font-size: 18px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 16px 18px; background: var(--color-background-primary); }
+  .card-green { border-left: 3px solid #16a34a; }
+  .card-red { border-left: 3px solid #dc2626; }
+
+  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .card-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .icon-green { background: #dcfce7; color: #15803d; }
+  .icon-red { background: #fee2e2; color: #dc2626; }
+  .card-header-text h3 { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+  .card-header-text p { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  .count-big { font-size: 32px; font-weight: 700; margin: 8px 0 2px; }
+  .count-green { color: #16a34a; }
+  .count-red { color: #dc2626; }
+  .count-label { font-size: 12px; color: var(--color-text-secondary); }
+
+  .check-list { list-style: none; margin-top: 10px; }
+  .check-list li { font-size: 12px; color: var(--color-text-secondary); padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+  .check-list li i { font-size: 14px; }
+  .check-green i { color: #16a34a; }
+  .check-red i { color: #dc2626; }
+
+  .models-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin: 10px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .model-pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin: 2px 3px 2px 0; border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); background: var(--color-background-secondary); }
+
+  .divider { height: 0.5px; background: var(--color-border-tertiary); margin: 0 24px; }
+
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: var(--color-background-secondary); color: var(--color-text-secondary); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 10px; text-align: left; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  td { padding: 8px 10px; color: var(--color-text-primary); border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--color-background-secondary); }
+
+  .tag { font-size: 10px; padding: 2px 7px; border-radius: 8px; font-weight: 500; display: inline-block; }
+  .tag-green { background: #dcfce7; color: #15803d; }
+  .tag-blue { background: #dbeafe; color: #1d4ed8; }
+  .tag-amber { background: #fef3c7; color: #92400e; }
+  .tag-red { background: #fee2e2; color: #991b1b; }
+  .tag-purple { background: #ede9fe; color: #5b21b6; }
+  .tag-gray { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+
+  .star-row { color: #f59e0b; font-size: 13px; letter-spacing: 1px; }
+
+  .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+  .uc-card { border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 12px; background: var(--color-background-primary); }
+  .uc-title { font-size: 11px; font-weight: 500; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+  .uc-title i { font-size: 15px; }
+  .uc-item { font-size: 11px; color: var(--color-text-secondary); padding: 2px 0; }
+
+  .system-row { display: grid; grid-template-columns: 180px 1fr; gap: 16px; align-items: start; }
+  .sys-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+  .sys-card h4 { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .sys-row { font-size: 12px; color: var(--color-text-secondary); padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+  .sys-row i { color: #16a34a; font-size: 14px; }
+
+  .footer { background: #0d1b2a; padding: 16px 24px; text-align: center; margin-top: 4px; }
+  .footer p { color: #94a3b8; font-size: 12px; line-height: 1.6; }
+  .footer p span { color: #4ade80; font-weight: 500; }
+
+  .section-header-bar { background: var(--color-background-secondary); border-left: 3px solid #0d1b2a; padding: 10px 14px; margin-bottom: 14px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; display: flex; align-items: center; gap: 8px; }
+  .section-header-bar h2 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .section-header-bar p { font-size: 12px; color: var(--color-text-secondary); margin-top: 1px; }
+
+  .tip-bar { background: #fefce8; border: 0.5px solid #fde68a; border-radius: var(--border-radius-md); padding: 10px 14px; margin-top: 12px; font-size: 12px; color: #92400e; display: flex; align-items: center; gap: 8px; }
+</style>
+
+<div class="banner">
+
+  <div class="header">
+    <h1><span class="green">OPEN SOURCE</span> vs <span class="red">CLOSED SOURCE</span> AI MODELS</h1>
+    <p>A practical guide for AI Testers & Engineers — Research Task 24052026</p>
+    <div class="badge-row">
+      <span class="badge badge-green"><i class="ti ti-brain" aria-hidden="true"></i> 100+ Open Source Models</span>
+      <span class="badge badge-blue"><i class="ti ti-lock" aria-hidden="true"></i> 10–20 Closed Source Models</span>
+      <span class="badge badge-amber"><i class="ti ti-cpu" aria-hidden="true"></i> 16 GB RAM Local Run Guide</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header-bar">
+      <i class="ti ti-info-circle" style="font-size:18px;color:#0d1b2a" aria-hidden="true"></i>
+      <div>
+        <h2>Section 1 — Overview</h2>
+        <p>What makes a model open or closed?</p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="card card-green">
+        <div class="card-header">
+          <div class="card-icon icon-green"><i class="ti ti-lock-open" aria-hidden="true"></i></div>
+          <div class="card-header-text">
+            <h3>Open Source Models</h3>
+            <p>Free to use, modify & self-host</p>
+          </div>
+        </div>
+        <div class="count-big count-green">100+</div>
+        <div class="count-label">and growing rapidly on Hugging Face</div>
+        <ul class="check-list">
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> Code, weights &amp; training details are public</li>
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> Free to download and fine-tune</li>
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> Community-driven development</li>
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> Full data privacy — runs locally</li>
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> No API cost or rate limits</li>
+        </ul>
+        <div class="models-label">Popular Models</div>
+        <span class="model-pill">Llama 3.1</span><span class="model-pill">Mistral 7B</span><span class="model-pill">Gemma 2</span>
+        <span class="model-pill">Phi-3</span><span class="model-pill">Qwen 2</span><span class="model-pill">DeepSeek</span>
+        <span class="model-pill">Falcon</span><span class="model-pill">+many more</span>
+      </div>
+      <div class="card card-red">
+        <div class="card-header">
+          <div class="card-icon icon-red"><i class="ti ti-lock" aria-hidden="true"></i></div>
+          <div class="card-header-text">
+            <h3>Closed Source Models</h3>
+            <p>API or app access only</p>
+          </div>
+        </div>
+        <div class="count-big count-red">10–20</div>
+        <div class="count-label">major commercial models available</div>
+        <ul class="check-list">
+          <li class="check-red"><i class="ti ti-circle-x" aria-hidden="true"></i> Weights &amp; code not publicly available</li>
+          <li class="check-red"><i class="ti ti-circle-x" aria-hidden="true"></i> Paid API access required</li>
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> Easiest to use — no setup needed</li>
+          <li class="check-green"><i class="ti ti-circle-check" aria-hidden="true"></i> Highest quality output (generally)</li>
+          <li class="check-red"><i class="ti ti-circle-x" aria-hidden="true"></i> Data sent to third-party servers</li>
+        </ul>
+        <div class="models-label">Popular Models</div>
+        <span class="model-pill">GPT-4o</span><span class="model-pill">Claude 3.5</span><span class="model-pill">Gemini 1.5 Pro</span>
+        <span class="model-pill">Grok 2</span><span class="model-pill">Command R+</span><span class="model-pill">Perplexity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header-bar">
+      <i class="ti ti-table" style="font-size:18px;color:#0d1b2a" aria-hidden="true"></i>
+      <div>
+        <h2>Section 2 — Popular Open Source Models (2025)</h2>
+        <p>Org, parameters, license &amp; best use</p>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Organisation</th>
+            <th>Size</th>
+            <th>License</th>
+            <th>Best For</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Llama 3.1</strong></td>
+            <td>Meta AI</td>
+            <td>8B / 70B / 405B</td>
+            <td><span class="tag tag-green">Llama Community</span></td>
+            <td>General, chat, reasoning</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Mistral 7B / Mixtral</strong></td>
+            <td>Mistral AI</td>
+            <td>7B / 8x7B / 8x22B</td>
+            <td><span class="tag tag-green">Apache 2.0</span></td>
+            <td>Chat, coding, MoE architecture</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gemma 2</strong></td>
+            <td>Google DeepMind</td>
+            <td>2B / 9B / 27B</td>
+            <td><span class="tag tag-blue">Gemma License</span></td>
+            <td>Edge devices, beginners</td>
+            <td><span class="star-row">★★★★☆</span></td>
+          </tr>
+          <tr>
+            <td><strong>Phi-3 / Phi-3.5</strong></td>
+            <td>Microsoft</td>
+            <td>3.8B / 7B / 14B</td>
+            <td><span class="tag tag-green">MIT</span></td>
+            <td>Coding, local run, small &amp; smart</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Qwen 2.5</strong></td>
+            <td>Alibaba</td>
+            <td>0.5B → 72B</td>
+            <td><span class="tag tag-green">Apache 2.0</span></td>
+            <td>Multilingual, coding, math</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek-V2 / Coder</strong></td>
+            <td>DeepSeek AI</td>
+            <td>7B / 67B / 236B MoE</td>
+            <td><span class="tag tag-green">Apache 2.0</span></td>
+            <td>Coding, math, reasoning</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Falcon 2</strong></td>
+            <td>TII (UAE)</td>
+            <td>11B / 40B / 180B</td>
+            <td><span class="tag tag-green">Apache 2.0</span></td>
+            <td>General NLP, research</td>
+            <td><span class="star-row">★★★☆☆</span></td>
+          </tr>
+          <tr>
+            <td><strong>StarCoder 2</strong></td>
+            <td>BigCode / HuggingFace</td>
+            <td>3B / 7B / 15B</td>
+            <td><span class="tag tag-green">BigCode Open RAIL</span></td>
+            <td>Code generation &amp; completion</td>
+            <td><span class="star-row">★★★★☆</span></td>
+          </tr>
+          <tr>
+            <td><strong>Orca 2</strong></td>
+            <td>Microsoft Research</td>
+            <td>7B / 13B</td>
+            <td><span class="tag tag-blue">MS Research</span></td>
+            <td>Reasoning, step-by-step tasks</td>
+            <td><span class="star-row">★★★★☆</span></td>
+          </tr>
+          <tr>
+            <td><strong>Yi-1.5</strong></td>
+            <td>01.AI</td>
+            <td>6B / 9B / 34B</td>
+            <td><span class="tag tag-green">Apache 2.0</span></td>
+            <td>Multilingual, long context</td>
+            <td><span class="star-row">★★★★☆</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header-bar">
+      <i class="ti ti-building-skyscraper" style="font-size:18px;color:#0d1b2a" aria-hidden="true"></i>
+      <div>
+        <h2>Section 3 — Popular Closed Source Models (2025)</h2>
+        <p>Commercial API-only models</p>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Organisation</th>
+            <th>Access Type</th>
+            <th>Context Window</th>
+            <th>Best For</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>GPT-4o</strong></td>
+            <td>OpenAI</td>
+            <td><span class="tag tag-red">API + ChatGPT</span></td>
+            <td>128K tokens</td>
+            <td>General, vision, multimodal</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Claude 3.5 Sonnet</strong></td>
+            <td>Anthropic</td>
+            <td><span class="tag tag-red">API + claude.ai</span></td>
+            <td>200K tokens</td>
+            <td>Coding, reasoning, long context</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gemini 1.5 Pro</strong></td>
+            <td>Google DeepMind</td>
+            <td><span class="tag tag-red">API + Gemini app</span></td>
+            <td>1M tokens</td>
+            <td>Long doc analysis, multimodal</td>
+            <td><span class="star-row">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td><strong>Grok 2</strong></td>
+            <td>xAI</td>
+            <td><span class="tag tag-red">X Premium / API</span></td>
+            <td>128K tokens</td>
+            <td>Real-time web data, chat</td>
+            <td><span class="star-row">★★★★☆</span></td>
+          </tr>
+          <tr>
+            <td><strong>Command R+</strong></td>
+            <td>Cohere</td>
+            <td><span class="tag tag-red">API only</span></td>
+            <td>128K tokens</td>
+            <td>RAG, enterprise search</td>
+            <td><span class="star-row">★★★★☆</span></td>
+          </tr>
+          <tr>
+            <td><strong>PaLM 2 / Bard</strong></td>
+            <td>Google</td>
+            <td><span class="tag tag-red">API + Workspace</span></td>
+            <td>32K tokens</td>
+            <td>Google Workspace integration</td>
+            <td><span class="star-row">★★★☆☆</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header-bar">
+      <i class="ti ti-trophy" style="font-size:18px;color:#0d1b2a" aria-hidden="true"></i>
+      <div>
+        <h2>Section 4 — Which Models Are Best? (By Use Case)</h2>
+        <p>"Best" depends on your goal — here's the quick guide</p>
+      </div>
+    </div>
+    <div class="usecase-grid">
+      <div class="uc-card">
+        <div class="uc-title" style="color:#16a34a"><i class="ti ti-user" aria-hidden="true"></i> Beginners</div>
+        <div class="uc-item">• Phi-3 Mini (3.8B)</div>
+        <div class="uc-item">• Gemma 2 2B</div>
+        <div class="uc-item">• Llama 3 8B</div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:6px;">Small, fast, runs locally</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-title" style="color:#7c3aed"><i class="ti ti-code" aria-hidden="true"></i> Coding</div>
+        <div class="uc-item">• DeepSeek Coder V2</div>
+        <div class="uc-item">• StarCoder 2</div>
+        <div class="uc-item">• Phi-3 Medium</div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:6px;">Code completion &amp; debug</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-title" style="color:#0369a1"><i class="ti ti-message" aria-hidden="true"></i> Chat / General</div>
+        <div class="uc-item">• Llama 3.1 70B</div>
+        <div class="uc-item">• Mistral 7B / Mixtral</div>
+        <div class="uc-item">• Qwen 2.5 7B</div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:6px;">Balanced for most tasks</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-title" style="color:#b45309"><i class="ti ti-brain" aria-hidden="true"></i> Advanced</div>
+        <div class="uc-item">• Llama 3.1 405B</div>
+        <div class="uc-item">• Mixtral 8x22B</div>
+        <div class="uc-item">• Qwen 2.5 72B</div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:6px;">Best reasoning quality</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-title" style="color:#dc2626"><i class="ti ti-building" aria-hidden="true"></i> Closed Source</div>
+        <div class="uc-item">• GPT-4o</div>
+        <div class="uc-item">• Claude 3.5 Sonnet</div>
+        <div class="uc-item">• Gemini 1.5 Pro</div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:6px;">Best quality, paid API</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header-bar">
+      <i class="ti ti-cpu" style="font-size:18px;color:#0d1b2a" aria-hidden="true"></i>
+      <div>
+        <h2>Section 5 — What Can You Run Locally With 16 GB RAM &amp; 256 GB SSD?</h2>
+        <p>Recommended open source models for your hardware — using Ollama, LM Studio or GPT4All</p>
+      </div>
+    </div>
+    <div class="system-row">
+      <div class="sys-card">
+        <h4><i class="ti ti-device-laptop" aria-hidden="true"></i> Your System</h4>
+        <div class="sys-row"><i class="ti ti-circle-check" aria-hidden="true"></i> RAM: 16 GB</div>
+        <div class="sys-row"><i class="ti ti-circle-check" aria-hidden="true"></i> Storage: 256 GB SSD</div>
+        <div class="sys-row"><i class="ti ti-circle-check" aria-hidden="true"></i> Good for: 2B to 8B models</div>
+        <div class="sys-row"><i class="ti ti-circle-check" aria-hidden="true"></i> Quant: Q4_K_M recommended</div>
+        <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+          <strong style="font-size:11px;">Tools to use:</strong><br>
+          Ollama · LM Studio · GPT4All<br>
+          Jan.ai · llamafile
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table style="table-layout:fixed;">
+          <thead>
+            <tr>
+              <th style="width:150px">Model</th>
+              <th style="width:70px">Params</th>
+              <th style="width:90px">RAM Needed</th>
+              <th style="width:80px">Disk Space</th>
+              <th style="width:90px">Quantisation</th>
+              <th style="width:120px">Performance</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Phi-3 Mini</strong></td>
+              <td>3.8B</td>
+              <td>4 – 6 GB</td>
+              <td>6 – 8 GB</td>
+              <td><span class="tag tag-green">Q4_K_M</span></td>
+              <td><span class="star-row">★★★★☆</span></td>
+              <td><span class="tag tag-green">Best starter</span></td>
+            </tr>
+            <tr>
+              <td><strong>Gemma 2 2B</strong></td>
+              <td>2B</td>
+              <td>3 – 5 GB</td>
+              <td>4 – 6 GB</td>
+              <td><span class="tag tag-green">Q4_K_M</span></td>
+              <td><span class="star-row">★★★☆☆</span></td>
+              <td><span class="tag tag-blue">Very light</span></td>
+            </tr>
+            <tr>
+              <td><strong>Llama 3 8B</strong></td>
+              <td>8B</td>
+              <td>10 – 14 GB</td>
+              <td>8 – 12 GB</td>
+              <td><span class="tag tag-green">Q4_K_M</span></td>
+              <td><span class="star-row">★★★★★</span></td>
+              <td><span class="tag tag-green">Best quality</span></td>
+            </tr>
+            <tr>
+              <td><strong>Mistral 7B</strong></td>
+              <td>7B</td>
+              <td>10 – 14 GB</td>
+              <td>8 – 12 GB</td>
+              <td><span class="tag tag-green">Q4_K_M</span></td>
+              <td><span class="star-row">★★★★★</span></td>
+              <td><span class="tag tag-green">Top choice</span></td>
+            </tr>
+            <tr>
+              <td><strong>Qwen 2.5 7B</strong></td>
+              <td>7B</td>
+              <td>10 – 14 GB</td>
+              <td>8 – 12 GB</td>
+              <td><span class="tag tag-green">Q4_K_M</span></td>
+              <td><span class="star-row">★★★★★</span></td>
+              <td><span class="tag tag-purple">Multilingual</span></td>
+            </tr>
+            <tr>
+              <td><strong>DeepSeek Coder 7B</strong></td>
+              <td>7B</td>
+              <td>10 – 14 GB</td>
+              <td>8 – 12 GB</td>
+              <td><span class="tag tag-green">Q4_K_M</span></td>
+              <td><span class="star-row">★★★★★</span></td>
+              <td><span class="tag tag-purple">Best for code</span></td>
+            </tr>
+            <tr>
+              <td><strong>Gemma 2 9B</strong></td>
+              <td>9B</td>
+              <td>12 – 16 GB</td>
+              <td>10 – 14 GB</td>
+              <td><span class="tag tag-amber">Q4_K_S</span></td>
+              <td><span class="star-row">★★★★★</span></td>
+              <td><span class="tag tag-amber">Tight on RAM</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <i class="ti ti-bulb" style="font-size:16px;flex-shrink:0" aria-hidden="true"></i>
+      <span><strong>Tip:</strong> Start with Phi-3 Mini or Gemma 2 2B if new to local AI. Graduate to Mistral 7B or Llama 3 8B (Q4_K_M) for production-quality results. Avoid models above 13B — they will exceed your 16 GB RAM limit without quantisation.</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      <span>Summary:</span> With 16 GB RAM &amp; 256 GB SSD, you can comfortably run 2B to 8B parameter models.<br>
+      They are perfect for learning, experimenting, and building your AI testing skills — completely offline and free.
+    </p>
+    <p style="margin-top:8px;color:#475569;font-size:11px;">AITesterBlueprint3xAnand · Chapter 02 — Prompt Engineering · Task 24052026</p>
+  </div>
+
+</div>
