@@ -43,3 +43,6 @@ Submit the following:
 1. **GitHub repository link**
 2. **Vercel deployment link**
 3. **Screenshot of the Vercel deployment**
+
+## Completion
+url: https://www.sdetclub.com/c/ai-tester-3x-only/task-6th-june-2026-test-strategy-buddy#comment_wrapper_105935759
