@@ -7,3 +7,5 @@ output/
 .DS_Store
 npm-debug.log*
 vite.config.js.timestamp-*.mjs
+
+.vercel
